@@ -16,7 +16,6 @@ type Rule struct {
 func solve1(input string) int64 {
 	maps := make([][]Rule, 0)
 	sources := make([]int64, 0)
-loop:
 	for i, line := range strings.Split(input, "\n\n") {
 		m := make([]Rule, 0)
 		split1 := strings.Split(line, "\n")
@@ -28,13 +27,14 @@ loop:
 					src, _ := strconv.ParseInt(n, 10, 64)
 					sources = append(sources, src)
 				}
-				continue loop
+				break
+			} else {
+				dst, _ := strconv.ParseInt(split2[0], 10, 64)
+				src, _ := strconv.ParseInt(split2[1], 10, 64)
+				lenght, _ := strconv.ParseInt(split2[2], 10, 64)
+				n := Rule{src, dst, lenght}
+				m = append(m, n)
 			}
-			dst, _ := strconv.ParseInt(split2[0], 10, 64)
-			src, _ := strconv.ParseInt(split2[1], 10, 64)
-			lenght, _ := strconv.ParseInt(split2[2], 10, 64)
-			n := Rule{src, dst, lenght}
-			m = append(m, n)
 		}
 		maps = append(maps, m)
 	}
@@ -62,7 +62,6 @@ loop:
 func solve2(input string) int64 {
 	maps := make([][]Rule, 0)
 	sources := make([]int64, 0)
-loop:
 	for i, line := range strings.Split(input, "\n\n") {
 		m := make([]Rule, 0)
 		split1 := strings.Split(line, "\n")
@@ -78,14 +77,14 @@ loop:
 						sources = append(sources, src+j)
 					}
 				}
-
-				continue loop
+				break
+			} else {
+				dst, _ := strconv.ParseInt(split2[0], 10, 64)
+				src, _ := strconv.ParseInt(split2[1], 10, 64)
+				lenght, _ := strconv.ParseInt(split2[2], 10, 64)
+				n := Rule{src, dst, lenght}
+				m = append(m, n)
 			}
-			dst, _ := strconv.ParseInt(split2[0], 10, 64)
-			src, _ := strconv.ParseInt(split2[1], 10, 64)
-			lenght, _ := strconv.ParseInt(split2[2], 10, 64)
-			n := Rule{src, dst, lenght}
-			m = append(m, n)
 		}
 		maps = append(maps, m)
 	}
