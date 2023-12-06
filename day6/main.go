@@ -17,16 +17,11 @@ func solve1(input [][]int) int {
 	for _, v := range input {
 		t, d := v[0], v[1]
 		sum *= RootsDiff(t, d)
-
 	}
 	return sum
 }
 
-func solve2(t, d int) int {
-	return RootsDiff(t, d)
-}
-
 func main() {
 	input := [][]int{{41, 214}, {96, 1789}, {88, 1127}, {94, 1055}}
-	fmt.Printf("Part1: %d\nPart2: %d\n", solve1(input), solve2(41968894, 214178911271055))
+	fmt.Printf("Part1: %d\nPart2: %d\n", solve1(input), RootsDiff(41968894, 214178911271055))
 }
