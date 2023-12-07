@@ -53,6 +53,7 @@ func (h Hand) FrequencySortedByValue() []kv {
 	}
 	return ss
 }
+
 func (h Hand) Frequency() map[byte]int {
 	freqs := make(map[byte]int)
 	for i := 0; i < len(h.card); i++ {
