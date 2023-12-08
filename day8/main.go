@@ -88,6 +88,7 @@ func solve2(input string) int {
 	}
 	return LCM(loops)
 }
+
 func gcd(a, b int) int {
 	for b != 0 {
 		t := b
@@ -109,15 +110,6 @@ func LCM(numbers []int) int {
 		result = lcm(result, numbers[i])
 	}
 	return result
-}
-
-func AllEndInZ(candidates []string) bool {
-	for _, candidate := range candidates {
-		if []byte(candidate)[2] != 'Z' {
-			return false
-		}
-	}
-	return true
 }
 
 func main() {
