@@ -191,7 +191,7 @@ func solve1(input string) int {
 }
 
 func solve2(input string) int {
-	// East is the longer path of MY input
+	// East is the longest path of MY input
 	return enclosed(input, East)
 }
 
