@@ -33,28 +33,31 @@ func CheckConstraint(s string, n int, lens []int) bool {
 	return true
 }
 
-var cache = make(map[int][]string)
+var cache = make(map[string][]string)
 
-// Get all combinations of elements
-func GetCombinations(l int, elements []byte) []string {
-	if v, ok := cache[l]; ok {
+// given a string, return all possible combinations of the string
+// substituting the characters '?' with combinations of '#' and '.'
+func GetCombinations(s string, subs []byte) []string {
+	if len(s) == 0 {
+		return []string{""}
+	}
+
+	if v, ok := cache[s]; ok {
 		return v
 	}
-	if l == 1 {
-		res := make([]string, len(elements))
-		for i, v := range elements {
-			res[i] = string(v)
-		}
-		return res
-	}
 
-	res := make([]string, 0)
-	for _, v := range elements {
-		for _, s := range GetCombinations(l-1, elements) {
-			res = append(res, string(v)+s)
+	var res []string
+
+	for _, v := range GetCombinations(s[1:], subs) {
+		if s[0] == '?' {
+			for _, sub := range subs {
+				res = append(res, string(sub)+v)
+			}
+		} else {
+			res = append(res, string(s[0])+v)
 		}
 	}
-	cache[l] = res
+	cache[s] = res
 	return res
 }
 
@@ -70,11 +73,7 @@ func solve1(input string) int {
 			lens[i], _ = strconv.Atoi(v)
 		}
 
-		for _, s := range GetCombinations(strings.Count(s1[0], "?"), []byte{'#', '.'}) {
-			patt := s1[0]
-			for _, v := range s {
-				patt = strings.Replace(patt, "?", string(v), 1)
-			}
+		for _, patt := range GetCombinations(s1[0], []byte{'#', '.'}) {
 			if CheckConstraint(patt, len(lens), lens) {
 				sum++
 			}
@@ -94,11 +93,8 @@ func solve2(input string) int {
 			lens[i], _ = strconv.Atoi(v)
 		}
 
-		for _, s := range GetCombinations(strings.Count(s1[0], "?"), []byte{'#', '.'}) {
-			patt := s1[0]
-			for _, v := range s {
-				patt = strings.Replace(patt, "?", string(v), 1)
-			}
+		for _, patt := range GetCombinations(s1[0], []byte{'#', '.'}) {
+
 			if CheckConstraint(patt, len(lens), lens) {
 				sum++
 			}
